@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "aea62ed4-4bc7-4ca3-9812-7860f9a9bd6c": {
+      "ProjectGuid": "aea62ed4-4bc7-4ca3-9812-7860f9a9bd6c",
+      "DisplayName": "Elgamal",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

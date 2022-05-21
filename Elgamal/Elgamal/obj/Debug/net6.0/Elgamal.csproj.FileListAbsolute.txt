@@ -1,0 +1,15 @@
+D:\MSA\semester 8 (( FINALLY ))\Security 401\project\Encrypted-ChatApp\Elgamal\Elgamal\bin\Debug\net6.0\Elgamal.exe
+D:\MSA\semester 8 (( FINALLY ))\Security 401\project\Encrypted-ChatApp\Elgamal\Elgamal\bin\Debug\net6.0\Elgamal.deps.json
+D:\MSA\semester 8 (( FINALLY ))\Security 401\project\Encrypted-ChatApp\Elgamal\Elgamal\bin\Debug\net6.0\Elgamal.runtimeconfig.json
+D:\MSA\semester 8 (( FINALLY ))\Security 401\project\Encrypted-ChatApp\Elgamal\Elgamal\bin\Debug\net6.0\Elgamal.dll
+D:\MSA\semester 8 (( FINALLY ))\Security 401\project\Encrypted-ChatApp\Elgamal\Elgamal\bin\Debug\net6.0\ref\Elgamal.dll
+D:\MSA\semester 8 (( FINALLY ))\Security 401\project\Encrypted-ChatApp\Elgamal\Elgamal\bin\Debug\net6.0\Elgamal.pdb
+D:\MSA\semester 8 (( FINALLY ))\Security 401\project\Encrypted-ChatApp\Elgamal\Elgamal\obj\Debug\net6.0\Elgamal.csproj.AssemblyReference.cache
+D:\MSA\semester 8 (( FINALLY ))\Security 401\project\Encrypted-ChatApp\Elgamal\Elgamal\obj\Debug\net6.0\Elgamal.GeneratedMSBuildEditorConfig.editorconfig
+D:\MSA\semester 8 (( FINALLY ))\Security 401\project\Encrypted-ChatApp\Elgamal\Elgamal\obj\Debug\net6.0\Elgamal.AssemblyInfoInputs.cache
+D:\MSA\semester 8 (( FINALLY ))\Security 401\project\Encrypted-ChatApp\Elgamal\Elgamal\obj\Debug\net6.0\Elgamal.AssemblyInfo.cs
+D:\MSA\semester 8 (( FINALLY ))\Security 401\project\Encrypted-ChatApp\Elgamal\Elgamal\obj\Debug\net6.0\Elgamal.csproj.CoreCompileInputs.cache
+D:\MSA\semester 8 (( FINALLY ))\Security 401\project\Encrypted-ChatApp\Elgamal\Elgamal\obj\Debug\net6.0\Elgamal.dll
+D:\MSA\semester 8 (( FINALLY ))\Security 401\project\Encrypted-ChatApp\Elgamal\Elgamal\obj\Debug\net6.0\ref\Elgamal.dll
+D:\MSA\semester 8 (( FINALLY ))\Security 401\project\Encrypted-ChatApp\Elgamal\Elgamal\obj\Debug\net6.0\Elgamal.pdb
+D:\MSA\semester 8 (( FINALLY ))\Security 401\project\Encrypted-ChatApp\Elgamal\Elgamal\obj\Debug\net6.0\Elgamal.genruntimeconfig.cache
