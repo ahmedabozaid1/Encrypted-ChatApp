@@ -308,12 +308,13 @@ namespace ElGamalAlgorithm
             Console.WriteLine("encrypt : \n" + plain_string);
 
             RandomBigIntegerGenerator RBI = new RandomBigIntegerGenerator();
-            BigInteger k = RBI.NextBigInteger(prime_length - 1);
+            BigInteger small_k = RBI.NextBigInteger(prime_length - 1);
 
-            BigInteger K = BigInteger.ModPow(Receiver_PublicKey, k, q);
-            this.Cypher_1 = BigInteger.ModPow(a, k, q);
+            BigInteger K = BigInteger.ModPow(Receiver_PublicKey, small_k, q);
+            this.Cypher_1 = BigInteger.ModPow(a, small_k, q);
 
             string chunck="";
+            List<string> chunck_= new List<string>();
             for (int i = 0; i < plain_string.Length; i++)
             {
                 chunck += plain_string[i];
@@ -324,6 +325,7 @@ namespace ElGamalAlgorithm
                     {
                         BigInteger Cyper2 = BigInteger.ModPow(K * BigInteger.Parse(chunck), 1, q);
                         this.Cypher_2.Add(Cyper2);
+                        chunck_.Add(chunck);
                         chunck = "";
                     }
 
@@ -332,6 +334,7 @@ namespace ElGamalAlgorithm
                 {
                     BigInteger Cyper2 = BigInteger.ModPow(K * BigInteger.Parse(chunck), 1, q);
                     this.Cypher_2.Add(Cyper2);
+                    chunck_.Add(chunck);
                     chunck = "";
                 }
 
@@ -340,6 +343,19 @@ namespace ElGamalAlgorithm
             {
                 BigInteger Cyper2 = BigInteger.ModPow(K * BigInteger.Parse(chunck), 1, q);
                 this.Cypher_2.Add(Cyper2);
+                chunck_.Add(chunck);
+                chunck = "";
+            }
+
+
+            string test = "";
+            for (int i = 0; i < chunck_.Count; i++)
+            {
+                test+= chunck_[i];
+            }
+            if(test !=plain_string)
+            {
+                Console.WriteLine("eroor creating chuncks");
             }
         }
 
@@ -406,9 +422,13 @@ namespace ElGamalAlgorithm
             Console.WriteLine("");
 
 
-            string s = "Hello There My name is eriny and this took to loong to do Hello There My name is eriny and this took to loong to do Hello There My name is eriny and this took to loong to do";
+            string s = "Hello Hello Hello Hello Hello Hello Hello Hello";
+            
+            // sender gets the public key of reciver
+            // calculats Cypher1 and Cypher2
             Sender.Encrypt(s, Receiver.Public_key);
 
+            // cypher message is sent in two parts
             string M = Receiver.Decrypt(Sender.Cypher_1,Sender.Cypher_2);
             if(M == s )
             {
@@ -417,8 +437,14 @@ namespace ElGamalAlgorithm
             else
             {
                 Console.WriteLine("something went wrong");
+                Console.WriteLine("");
+                Console.WriteLine("");
+                Console.WriteLine("");
+                Console.WriteLine(M);
+
+
             }
-          
+
 
 
 
