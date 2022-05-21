@@ -137,12 +137,15 @@ namespace ElGamalAlgorithm
 
     class ElGamal
     {
-        public static BigInteger q = BigInteger.One;
-        public static BigInteger a = BigInteger.One;
-        public static BigInteger Private_Key = BigInteger.One;
-        public static BigInteger Public_key = BigInteger.One;
+        public  BigInteger q = BigInteger.One;
+        public  BigInteger a = BigInteger.One;
+        public BigInteger Private_Key = BigInteger.One;
+        public BigInteger Public_key = BigInteger.One;
+        public BigInteger Cypher_1 = BigInteger.One;
+        public List<BigInteger> Cypher_2 = new List<BigInteger>();
 
-        public static int prime_length = 100;
+        // size is 60 should be 300 bas ana 3andy marara wa7da (╯°□°）╯︵ ┻━┻
+        public static int prime_length = 60;
 
         class PrimeRandNume
         {
@@ -264,24 +267,28 @@ namespace ElGamalAlgorithm
             }
             return x < 0 ? x + m0 : x;
         }
-        
+       
 
-
-
-
-
-        // generates q and a
-        public static void genearte_global_public_elements()
+        // generates q and a 
+        // called by sender
+        public void genearte_global_public_elements()
         {
             PrimeRandNume primeRandNume = new PrimeRandNume();
-            // size is 10 should be 300 bas ana 3andy marara wa7da (╯°□°）╯︵ ┻━┻
-            q = primeRandNume.generate(prime_length);
-            a = GFG.findPrimitive(q);
+            
+            this.q = primeRandNume.generate(prime_length);
+            this.a = GFG.findPrimitive(q);
 
            
         }
+        // recives q and a 
+        // called by reciver
+        public void set_global_public_elements(BigInteger bigPrimeNumber , BigInteger primetiveRoot)
+        {
+            this.q = bigPrimeNumber;
+            this.a = primetiveRoot;
+        }
 
-        public static void generate_key_pair()
+        public void generate_key_pair()
         {
             RandomBigIntegerGenerator RBI = new RandomBigIntegerGenerator();
             BigInteger RandomNumber = RBI.NextBigInteger(prime_length -1);
@@ -292,26 +299,127 @@ namespace ElGamalAlgorithm
         }
 
 
+        public void Encrypt(string s, BigInteger Receiver_PublicKey)
+        {
+
+            byte[] byt = Encoding.ASCII.GetBytes(s);
+            BigInteger plian_number = new BigInteger(byt);
+            string plain_string = plian_number.ToString();
+            Console.WriteLine("encrypt : \n" + plain_string);
+
+            RandomBigIntegerGenerator RBI = new RandomBigIntegerGenerator();
+            BigInteger k = RBI.NextBigInteger(prime_length - 1);
+
+            BigInteger K = BigInteger.ModPow(Receiver_PublicKey, k, q);
+            this.Cypher_1 = BigInteger.ModPow(a, k, q);
+
+            string chunck="";
+            for (int i = 0; i < plain_string.Length; i++)
+            {
+                chunck += plain_string[i];
+                if(i+1 != plain_string.Length)
+                {
+                    string next = chunck + plain_string[i + 1];
+                    if (BigInteger.Parse(next) >= q)
+                    {
+                        BigInteger Cyper2 = BigInteger.ModPow(K * BigInteger.Parse(chunck), 1, q);
+                        this.Cypher_2.Add(Cyper2);
+                        chunck = "";
+                    }
+
+                }
+                else
+                {
+                    BigInteger Cyper2 = BigInteger.ModPow(K * BigInteger.Parse(chunck), 1, q);
+                    this.Cypher_2.Add(Cyper2);
+                    chunck = "";
+                }
+
+            }
+            if(chunck !="")
+            {
+                BigInteger Cyper2 = BigInteger.ModPow(K * BigInteger.Parse(chunck), 1, q);
+                this.Cypher_2.Add(Cyper2);
+            }
+        }
+
+        public string Decrypt(BigInteger Cypher1 , List<BigInteger> Cypher2)
+        {
+            string s;
+            string plain_string="";
+            BigInteger K = BigInteger.ModPow(Cypher1, this.Private_Key, q);
+            BigInteger inverse = ModInverse(K, q);
+            
+            for (int i = 0;i<Cypher2.Count;i++)
+            {
+                BigInteger M = BigInteger.ModPow(Cypher2[i] * inverse, 1, q);
+                plain_string+= M.ToString();
+            }
+
+            Console.WriteLine("Decrypted :  \n" + plain_string);
+
+            byte[] bytes = BigInteger.Parse(plain_string).ToByteArray();
+            ASCIIEncoding ascii = new ASCIIEncoding();
+            s = ascii.GetString(bytes);
+            return s;
+        }
 
         public static int Main(string[] args)
         {
-            // step 1 generate global elements q and a
-            // this takes FOREVER!! SAVE YOUR RESULTS!
-            ElGamal.genearte_global_public_elements();
-            Console.WriteLine(ElGamal.q);
-            Console.WriteLine(ElGamal.a);
 
-            // for every user 
-            ElGamal.generate_key_pair();
-            Console.WriteLine(ElGamal.Public_key);
-            Console.WriteLine(ElGamal.Private_Key);
-
+            /// our two peers
+            ElGamal Sender = new ElGamal();
+            ElGamal Receiver = new ElGamal();
+            // sender and reciver must share public keys AND global elemnts
             // the public info is
             /// public key
             /// q
             /// a
-            
-            // sender and reciver must share public keys AND global elemnts
+
+
+            // step 1 sender generate global elements q and a
+            // this takes FOREVER!! 
+
+            Sender.genearte_global_public_elements();
+            Console.WriteLine("sender q " +Sender.q);
+            Console.WriteLine("sender a "+ Sender.a);
+
+            //sender sends the q and a to the reciver
+            // some connection magic
+            Receiver.set_global_public_elements(Sender.q,Sender.a);
+
+            // for every user generate keys
+
+            //sender
+            Sender.generate_key_pair();
+            Console.WriteLine("sender public key " + Sender.Public_key);
+            Console.WriteLine("sender private key " +Sender.Private_Key);
+            //reciver
+            Receiver.generate_key_pair();
+            Console.WriteLine("Reciver public key " + Receiver.Public_key);
+            Console.WriteLine("Reciver private key " + Receiver.Private_Key);
+
+
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+
+            string s = "Hello There My name is eriny and this took to loong to do Hello There My name is eriny and this took to loong to do Hello There My name is eriny and this took to loong to do";
+            Sender.Encrypt(s, Receiver.Public_key);
+
+            string M = Receiver.Decrypt(Sender.Cypher_1,Sender.Cypher_2);
+            if(M == s )
+            {
+                Console.WriteLine("sucsses");
+            }
+            else
+            {
+                Console.WriteLine("something went wrong");
+            }
+          
+
 
 
             return 0;
