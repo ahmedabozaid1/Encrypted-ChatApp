@@ -297,7 +297,7 @@ namespace ElGamalAlgorithm
             Public_key = BigInteger.ModPow(a, Private_Key, q);
 
         }
-
+       
 
         public void Encrypt(string s, BigInteger Receiver_PublicKey)
         {
@@ -318,17 +318,49 @@ namespace ElGamalAlgorithm
             for (int i = 0; i < plain_string.Length; i++)
             {
                 chunck += plain_string[i];
+               
                 if(i+1 != plain_string.Length)
                 {
                     string next = chunck + plain_string[i + 1];
                     if (BigInteger.Parse(next) >= q)
                     {
-                        BigInteger Cyper2 = BigInteger.ModPow(K * BigInteger.Parse(chunck), 1, q);
-                        this.Cypher_2.Add(Cyper2);
-                        chunck_.Add(chunck);
-                        chunck = "";
-                    }
+                        if(plain_string[i + 1] == '0')
+                        {
 
+                            // find the first non zero 
+                            // sting c is x000.. 
+                            int index = chunck.Length - 1;
+                            for (int j = chunck.Length-1; j > 0; j--)
+                            {
+                                if(chunck[j]!='0')
+                                {
+                                    index=j;
+                                    break;
+                                }
+                            }
+                            string c="";
+                            for (int j = index; j<chunck.Length;j++)
+                            {
+                                c+=chunck[j];
+                            }
+
+                            chunck = chunck.Remove(index);   
+
+                            BigInteger Cyper2 = BigInteger.ModPow(K * BigInteger.Parse(chunck), 1, q);
+                            this.Cypher_2.Add(Cyper2);
+                            chunck_.Add(chunck);
+                            chunck = "" + c;
+
+                        }
+                        else
+                        {
+                            BigInteger Cyper2 = BigInteger.ModPow(K * BigInteger.Parse(chunck), 1, q);
+                            this.Cypher_2.Add(Cyper2);
+                            chunck_.Add(chunck);
+                            chunck = "";
+                        }
+                      
+                    }
                 }
                 else
                 {
@@ -339,13 +371,7 @@ namespace ElGamalAlgorithm
                 }
 
             }
-            if(chunck !="")
-            {
-                BigInteger Cyper2 = BigInteger.ModPow(K * BigInteger.Parse(chunck), 1, q);
-                this.Cypher_2.Add(Cyper2);
-                chunck_.Add(chunck);
-                chunck = "";
-            }
+         
 
 
             string test = "";
@@ -422,7 +448,8 @@ namespace ElGamalAlgorithm
             Console.WriteLine("");
 
 
-            string s = "Hello Hello Hello Hello Hello Hello Hello Hello";
+            string s = "Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello ";
+
             
             // sender gets the public key of reciver
             // calculats Cypher1 and Cypher2
