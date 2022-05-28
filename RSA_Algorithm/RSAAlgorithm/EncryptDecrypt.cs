@@ -20,6 +20,24 @@ namespace RSAAlgorithm
 
                 if (BigInteger.Parse(temp) > kn)
                 {
+
+                  
+                    if(temp.Substring(0, 1) == "0")
+                    {
+                        string r = list[list.Count - 1].ToString();
+                        r += "0";
+                     
+                        var firstHalfLength = (int)(r.Length / 2);
+                        var secondHalfLength = r.Length - firstHalfLength;
+                        var split = new[]
+                        {
+                                 r.Substring(0, firstHalfLength),
+                                 r.Substring(firstHalfLength, secondHalfLength)
+                        };
+
+                        list[list.Count-1] = BigInteger.Parse(split[0]);
+                        list.Add(BigInteger.Parse(split[1]));
+                    }
                     list.Add(BigInteger.Parse(k));
                     k = "";
                     k += s[i];
@@ -42,15 +60,18 @@ namespace RSAAlgorithm
             byte[] byt = Encoding.ASCII.GetBytes(message);
             BigInteger number = new BigInteger(byt);
             message = number.ToString();
+          
+          
             List<BigInteger> m =this.Tochunks(message, n);
-
+          
             List<BigInteger> cypher = new List<BigInteger>();
             for (int i = 0; i < m.Count; i++)
             {
+     
                 BigInteger result = BigInteger.ModPow(m[i], e, n);  /// C = m^e mod n
                 cypher.Add(result);
             }
-
+       
             return cypher;
         }
         public string DecryptString(List<BigInteger> cypher, BigInteger d, BigInteger n)
@@ -75,15 +96,17 @@ namespace RSAAlgorithm
         public List<BigInteger> Encrypt(BigInteger message, BigInteger e, BigInteger n)
         {
             string plain = message.ToString();
+           
             List<BigInteger> chunks = new List<BigInteger>();
             chunks = this.Tochunks(plain, n);
             List<BigInteger> cypher = new List<BigInteger>();
             for (int i = 0; i < chunks.Count; i++)
             {
+              
+               
                 BigInteger result = BigInteger.ModPow(chunks[i], e, n);  /// C = m^e mod n
                 cypher.Add(result);
             }
-
             return cypher;
         }
         public string Decrypt(List<BigInteger> cypher, BigInteger d, BigInteger n)

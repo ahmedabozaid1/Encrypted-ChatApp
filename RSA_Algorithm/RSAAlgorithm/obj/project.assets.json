@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Work\\MSA\\Semester 8 Spring 22\\CS401 Computer Security\\New folder\\RSA_Algorithm\\RSAAlgorithm\\RSAAlgorithm.csproj",
+      "projectUniqueName": "E:\\Work\\MSA\\Semester 8 Spring 22\\CS401 Computer Security\\New folder\\Encrypted-ChatApp\\RSA_Algorithm\\RSAAlgorithm\\RSAAlgorithm.csproj",
       "projectName": "RSAAlgorithm",
-      "projectPath": "E:\\Work\\MSA\\Semester 8 Spring 22\\CS401 Computer Security\\New folder\\RSA_Algorithm\\RSAAlgorithm\\RSAAlgorithm.csproj",
+      "projectPath": "E:\\Work\\MSA\\Semester 8 Spring 22\\CS401 Computer Security\\New folder\\Encrypted-ChatApp\\RSA_Algorithm\\RSAAlgorithm\\RSAAlgorithm.csproj",
       "packagesPath": "C:\\Users\\Iamah\\.nuget\\packages\\",
-      "outputPath": "E:\\Work\\MSA\\Semester 8 Spring 22\\CS401 Computer Security\\New folder\\RSA_Algorithm\\RSAAlgorithm\\obj\\",
+      "outputPath": "E:\\Work\\MSA\\Semester 8 Spring 22\\CS401 Computer Security\\New folder\\Encrypted-ChatApp\\RSA_Algorithm\\RSAAlgorithm\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Iamah\\AppData\\Roaming\\NuGet\\NuGet.Config",
